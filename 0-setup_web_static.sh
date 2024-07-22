@@ -2,9 +2,8 @@
 # Installs configures and starts the web server
 
 if ! command -v nginx &> /dev/null; then
-    sudo apt update
-    sudo apt install nginx
-    service nginx start
+    apt-get update
+    apt-get -y install nginx
 fi
 
 sudo mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
