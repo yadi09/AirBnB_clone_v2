@@ -4,7 +4,6 @@
 if ! command -v nginx &> /dev/null; then
     sudo apt update
     sudo apt install nginx
-    service nginx start
 fi
 
 sudo mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
