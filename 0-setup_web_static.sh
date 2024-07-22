@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Installs configures and starts the web server
 
 if ! command -v nginx &> /dev/null; then
     sudo apt update
@@ -6,7 +7,7 @@ if ! command -v nginx &> /dev/null; then
     service nginx start
 fi
 
-mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
+sudo mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
 
 echo "<h1>simple content, to test Nginx configuration</h1>" > /data/web_static/releases/test/index.html
 
