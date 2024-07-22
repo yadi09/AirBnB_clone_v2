@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#Installs configures and starts the web server
 
 if ! command -v nginx &> /dev/null; then
     sudo apt update
