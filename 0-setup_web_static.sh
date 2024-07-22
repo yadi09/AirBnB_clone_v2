@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Installs configures and starts the web server
 
 if ! command -v nginx &> /dev/null; then
     sudo apt update
@@ -9,9 +8,13 @@ fi
 
 mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
 
-echo "<h1>simple content, to test Nginx configuration</h1>" >> /data/web_static/releases/test/index.html
-[ -d /data/web_static/current ] && rm -rf /data/web_static/current
-ln -sf data/web_static/releases/test/ /data/web_static/current
+echo "<h1>simple content, to test Nginx configuration</h1>" > /data/web_static/releases/test/index.html
+
+if [ -L /data/web_static/current ]; then
+    rm -rf /data/web_static/current
+fi
+
+ln -s /data/web_static/releases/test/ /data/web_static/current
 
 sudo chown -R ubuntu:ubuntu /data/
 
