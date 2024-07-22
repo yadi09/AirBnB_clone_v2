@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
                     except Exception:
                         pass    
                 new_instance.__dict__[key] = value
-        storage.save()
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
