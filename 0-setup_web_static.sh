@@ -9,7 +9,7 @@ fi
 mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
 
 echo "<h1>simple content, to test Nginx configuration</h1>" >> /data/web_static/releases/test/index.html
-
+[ -d /data/web_static/current ] && rm -rf /data/web_static/current
 ln -sf data/web_static/releases/test/ /data/web_static/current
 
 sudo chown -R ubuntu:ubuntu /data/
