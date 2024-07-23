@@ -37,22 +37,23 @@ def do_deploy(archive_path):
 
     file_name = archive_path.split('/')[-1]
     unzip_file = file_name.replace(".tgz", "")
+    path = "/data/web_static/releases/{}/".format(unzip_file)
 
     try:
         put(archive_path, '/tmp/')
 
         run("mkdir -p /data/web_static/releases/{}".format(unzip_file))
-        run("tar -xzvf /tmp/{} -C /data/web_static/releases/{}".format(
+        run("tar -xzvf /tmp/{} -C {}".format(
             file_name,
-            unzip_file
+            path
         ))
-
-        run("rm /tmp/{}".format(file_name))
+        run("rm -rf /tmp/{}".format(file_name))
+        run("mv {}web_static/* {}".format(path, path))
+        run("rm -rf /data/web_static/releases/{}/web_static".format(unzip_file))
         run("rm /data/web_static/current")
         run("ln -s /data/web_static/releases/{} /data/web_static/current"
             .format(unzip_file))
-        run("mv /data/web_static/current/web_static/* /data/web_static/current/")
-        run("rm -r /data/web_static/current/web_static")
+
         return True
     except Exception:
         return False
