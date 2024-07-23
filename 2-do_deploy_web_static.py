@@ -49,7 +49,8 @@ def do_deploy(archive_path):
         ))
         run("rm -rf /tmp/{}".format(file_name))
         run("mv {}web_static/* {}".format(path, path))
-        run("rm -rf /data/web_static/releases/{}/web_static".format(unzip_file))
+        run("rm -rf /data/web_static/releases/{}/web_static"
+            .format(unzip_file))
         run("rm /data/web_static/current")
         run("ln -s /data/web_static/releases/{} /data/web_static/current"
             .format(unzip_file))
