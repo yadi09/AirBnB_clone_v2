@@ -27,6 +27,7 @@ def do_pack():
 
     return file_path
 
+
 def do_deploy(archive_path):
     """Fabric script that distributes an archive to your web servers,"""
     if not os.path.exists(archive_path):
@@ -36,7 +37,7 @@ def do_deploy(archive_path):
 
     file_name = archive_path.split('/')[-1]
     unzip_file = file_name.replace(".tgz", "")
-    
+
     try:
         put(archive_path, '/tmp/')
 
@@ -48,9 +49,8 @@ def do_deploy(archive_path):
 
         run("rm /tmp/{}".format(file_name))
         run("rm /data/web_static/current")
-        run("ln -s /data/web_static/releases/{} /data/web_static/current".format(
-            unzip_file
-        ))
+        run("ln -s /data/web_static/releases/{} /data/web_static/current"
+            .format(unzip_file))
         run("mv /data/web_static/current/web_static/* /data/web_static/current/")
         run("rm -r /data/web_static/current/web_static")
         return True
