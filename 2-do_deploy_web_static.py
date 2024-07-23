@@ -2,12 +2,14 @@
 """Fabric script that generates a .tgz archive
 from the contents of the web_static folder"""
 
-from fabric.api import local, env, put, run
+from fabric.api import local, env, put, run, runs_once
 from datetime import datetime
 import os
 
 env.hosts = ['ubuntu@52.201.211.145', 'ubuntu@54.209.162.93']
 
+
+@runs_once
 def do_pack():
     """Fabric script that generates a .tgz archive"""
     local("mkdir -p versions")
