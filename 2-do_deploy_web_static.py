@@ -33,28 +33,26 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
 
-    env.hosts = ['ubuntu@52.201.211.145', 'ubuntu@54.209.162.93']
-
     file_name = archive_path.split('/')[-1]
     unzip_file = file_name.replace(".tgz", "")
     path = "/data/web_static/releases/{}/".format(unzip_file)
 
     try:
-        put(archive_path, '/tmp/')
+        put(archive_path, "/tmp/{}".format(file_name))
 
-        run("mkdir -p /data/web_static/releases/{}".format(unzip_file))
-        run("tar -xzvf /tmp/{} -C {}".format(
+        run("mkdir -p {}".format(path))
+        run("tar -xzf /tmp/{} -C {}".format(
             file_name,
             path
         ))
         run("rm -rf /tmp/{}".format(file_name))
         run("mv {}web_static/* {}".format(path, path))
-        run("rm -rf /data/web_static/releases/{}/web_static"
-            .format(unzip_file))
-        run("rm /data/web_static/current")
-        run("ln -s /data/web_static/releases/{} /data/web_static/current"
-            .format(unzip_file))
+        run("rm -rf {}/web_static".format(path))
+        run("rm -rf /data/web_static/current")
+        run("ln -s {} /data/web_static/current".format(path))
 
-        return True
+        retn = True
     except Exception:
-        return False
+        retn = False
+
+    return retn
