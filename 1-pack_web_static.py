@@ -20,7 +20,7 @@ def do_pack():
     )
 
     try:
-        local("tar -czvf {} web_static".format(file_path))
+        local("tar -czvf {} web_static/".format(file_path))
     except Exception:
         file_path = None
 
