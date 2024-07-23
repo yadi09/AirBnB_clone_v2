@@ -6,6 +6,7 @@ from fabric.api import local, env, put, run
 from datetime import datetime
 import os
 
+env.hosts = ['ubuntu@52.201.211.145', 'ubuntu@54.209.162.93']
 
 def do_pack():
     """Fabric script that generates a .tgz archive"""
