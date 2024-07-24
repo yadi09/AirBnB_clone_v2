@@ -74,7 +74,7 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """Fabric script that creates and distributes an archive to your web servers,"""
+    """Fabric script that creates and distributes an archive to servers"""
     archive_path = do_pack()
     if archive_path:
         return False
