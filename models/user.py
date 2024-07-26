@@ -20,8 +20,3 @@ class User(BaseModel, Base):
         first_name = ''
         last_name = ''
 
-    places = relationship(
-        'place',
-        cascade="all, delete, delete-orphan",
-        backref='user'
-    ) if os.getenv('HBNB_TYPE_STORAGE') == 'db' else None

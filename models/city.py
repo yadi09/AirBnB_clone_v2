@@ -15,9 +15,3 @@ class City(BaseModel, Base):
     else:
         state_id = ''
         name = ''
-
-    places = relationship(
-        'place',
-        cascade='all, delete, delete-orphan',
-        backref='cities'
-    ) if os.getenv('HBNB_TYPE_STORAGE') == 'db' else None
