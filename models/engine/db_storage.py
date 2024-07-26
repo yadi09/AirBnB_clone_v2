@@ -69,7 +69,6 @@ class DBStorage:
                 type(obj).id == obj.id).delete(
                     synchronize_session=False
                 )
-            )
 
     def reload(self):
         "create all tables in the database"
