@@ -39,7 +39,7 @@ class DBStorage:
     def all(self, cls=None):
         "query on the current database session"
         objs = {}
-        all_cls = (State, City, User)
+        all_cls = (State, City, User, Place)
         if cls is None:
             for cls_type in all_cls:
                 query = self.__session.query(cls_type)
