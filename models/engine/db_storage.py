@@ -11,7 +11,6 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
-
 class DBStorage:
     __engine = None
     __session = None
@@ -35,7 +34,7 @@ class DBStorage:
     def all(self, cls=None):
         "query on the current database session"
         objs = {}
-        all_cls = (User, State, City, Amenity, Place, Review)
+        all_cls = (State, City)
         if cls is None:
             for cls_type in all_cls:
                 query = self.__session.query(cls_type)
