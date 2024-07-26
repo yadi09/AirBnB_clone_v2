@@ -12,21 +12,26 @@ from models.amenity import Amenity
 from models.review import Review
 
 class DBStorage:
+    """class manages db storage"""
     __engine = None
     __session = None
 
     def __init__(self):
+        "init"
         env = os.getenv('HBNB_ENV')
         user = os.getenv('HBNB_MYSQL_USER')
         pwd = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
         db_name = os.getenv('HBNB_MYSQL_DB')
-        storage = os.getenv('HBNB_TYPE_STORAGE')
+        storage_type = os.getenv('HBNB_TYPE_STORAGE')
         db_url = "mysql+mysqldb://{}:{}@{}:3306/{}".format(
                 user, pwd, host, db_name
             )
 
-        self.__engine = create_engine(db_url, pool_pre_ping=True)
+        self.__engine = create_engine(
+            db_url,
+            pool_pre_ping=True
+        )
 
         if env == 'test':
             Base.metadata.drop_all(self.__engine)
@@ -50,7 +55,8 @@ class DBStorage:
 
     def new(self, obj):
         "add the object to the current database session"
-        self.__session.add(obj)
+        if obj:
+            self.__session.add(obj)
 
     def save(self):
         "commit all changes of the current database session"
@@ -59,10 +65,14 @@ class DBStorage:
     def delete(self, obj=None):
         "delete from the current database session obj if not None"
         if obj is not None:
-            self.__session.delete(obj)
+            self.__session.query(type(obj)).filter(
+                type(obj).id == obj.id).delete(
+                    synchronize_session=False
+                )
+            )
 
     def reload(self):
         "create all tables in the database"
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine)
+        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)
