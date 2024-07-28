@@ -64,3 +64,7 @@ class FileStorage:
                 list_delete_keys.append(k)
         for k in list_delete_keys:
             del FileStorage.__objects[k]
+
+    def close(self):
+        """reload """
+        self.reload()
