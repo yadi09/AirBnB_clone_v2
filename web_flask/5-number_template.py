@@ -39,7 +39,7 @@ def display_int(n):
 
 @app.route('/number_template/<int:n>')
 def display_html_filr(n):
-    return render_template('5-number.html')
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == "__main__":
