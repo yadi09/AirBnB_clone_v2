@@ -20,9 +20,17 @@ def hbnb():
 
 
 @app.route('/c/<text>')
-def text(text):
+def ctext(text):
     """return with var value"""
     return "C {}".format(text.replace("_", " "))
+
+
+@app.route('/python/<text>')
+@app.route('/python', defaults={'text': 'is cool'})
+def pytext(text):
+    """py text"""
+    return "Python {}".format(text.replace("_", " "))
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
