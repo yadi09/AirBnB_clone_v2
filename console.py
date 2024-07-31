@@ -136,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
                         else:
                             value = float(value)
                     except Exception:
-                        pass    
+                        pass
                 new_instance.__dict__[key] = value
         storage.new(new_instance)
         print(new_instance.id)
@@ -333,6 +333,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
