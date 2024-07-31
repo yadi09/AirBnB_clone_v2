@@ -3,7 +3,6 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from models.city import City
 import os
 
 class State(BaseModel, Base):
@@ -26,9 +25,9 @@ class State(BaseModel, Base):
         def cities(self):
             """Getter attribute to return a list of City instances"""
             from models import storage
+            from models.city import City
             city_list = storage.all(City)
-            filter_by_id = []
-            for key, value in city_list.items():
-                if key.split('.')[1] == self.id:
-                    filter_by_id.append(value)
-                return filter_by_id
+            city_list = storage.all(City)
+            filter_by_id = [city for city in city_list.values()
+                            if city.state_id == self.id]
+            return filter_by_id
