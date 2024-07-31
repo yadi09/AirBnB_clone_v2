@@ -9,18 +9,18 @@ from models.state import State
 app = Flask(__name__)
 
 
+@app.teardown_appcontext
+def tear_down(exception):
+    """tear down"""
+    storage.close()
+
+
 @app.route("/states_list", strict_slashes=False)
 def stateList():
     """ comment """
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
     return render_template('7-states_list.html', states=states)
-
-
-@app.teardown_appcontext
-def tear_down(exception):
-    """tear down"""
-    storage.close()
 
 
 if __name__ == "__main__":
