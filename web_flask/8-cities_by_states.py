@@ -1,4 +1,5 @@
-#!/usr/bin/python3                                                                   """script that starts a Flask web application"""
+#!/usr/bin/python3
+"""script that starts a Flask web application"""
 
 from flask import Flask, render_template
 from models import storage
@@ -14,6 +15,7 @@ def tear_down(exception):
 
 @app.route("/cities_by_states")
 def cityByState():
+    """city by state"""
     state_by_city = storage.all(State).values()
     sorted_data = sorted(state_by_city, key=lambda sc: sc.name)
     return render_template('8-cities_by_states.html', data=sorted_data)
